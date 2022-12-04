@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -22,7 +22,7 @@ func (ip *DefaultIpAddressProvider) GetLastIP() string {
 func (ip *DefaultIpAddressProvider) GetLatestIP() string {
 	resp, err := http.Get("https://ifconfig.me")
 	if err != nil {
-		fmt.Println("Failed to get ip address")
+		log.Println("Failed to get ip address")
 		return ""
 	}
 
@@ -30,7 +30,7 @@ func (ip *DefaultIpAddressProvider) GetLatestIP() string {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Println("Failed to read ip address", err)
+		log.Println("Failed to read ip address", err)
 		return ""
 	}
 	ip.lastIp = string(body)

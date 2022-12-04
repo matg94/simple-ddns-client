@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -33,6 +34,6 @@ func (client *GoogleDDNSClient) UpdateIP(domainName, ipAddress string) error {
 	if err != nil || resp.StatusCode != 200 {
 		return err
 	}
-	fmt.Printf("Updated IP Address for %s to %s\n", domainName, ipAddress)
+	log.Printf("Updated IP Address for %s to %s\n", domainName, ipAddress)
 	return nil
 }

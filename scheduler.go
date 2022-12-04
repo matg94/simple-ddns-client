@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"time"
 )
 
@@ -32,7 +32,7 @@ func (s *DefaultScheduler) Execute(provider IpAddressProvider, ddns DDNSClient, 
 	}
 	err := ddns.UpdateIP(domainName, latestIp)
 	if err != nil {
-		fmt.Println("Failed to update ip", err)
+		log.Println("Failed to update ip", err)
 		return
 	}
 }

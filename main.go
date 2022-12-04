@@ -3,14 +3,21 @@ package main
 import (
 	"log"
 	"os"
+	"strconv"
 )
 
 func StartGoogleClient() {
-	scheduler := &DefaultScheduler{
-		Interval: 30,
-	}
 	ipProvider := &DefaultIpAddressProvider{
 		"0.0.0.0",
+	}
+
+	interval, err := strconv.Atoi(os.Getenv("GOOGLE_DDNS_INTERVAL"))
+	if err != nil {
+		interval = 60
+	}
+
+	scheduler := &DefaultScheduler{
+		Interval: interval,
 	}
 
 	user := os.Getenv("GOOGLE_DDNS_USERNAME")

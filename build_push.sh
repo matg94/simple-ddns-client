@@ -1,0 +1,2 @@
+docker buildx build --push --platform linux/arm/v7 --tag registry.digitalocean.com/mg-docker-registry/simple-ddns-client:arm64 .
+docker buildx build --push --platform linux/amd64 --tag registry.digitalocean.com/mg-docker-registry/simple-ddns-client:amd64 .

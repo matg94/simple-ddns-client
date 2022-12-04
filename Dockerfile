@@ -10,4 +10,4 @@ COPY *.go ./
 
 RUN go build -o /simple-ddns-client
 
-CMD [ "/simple-ddns-client" ]
+CMD [ "./simple-ddns-client" ]

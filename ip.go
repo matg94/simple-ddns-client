@@ -33,6 +33,6 @@ func (ip *DefaultIpAddressProvider) GetLatestIP() string {
 		fmt.Println("Failed to read ip address", err)
 		return ""
 	}
-
+	ip.lastIp = string(body)
 	return string(body)
 }

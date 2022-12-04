@@ -2,7 +2,7 @@ package main
 
 import "os"
 
-func main() {
+func StartGoogleClient() {
 	scheduler := &DefaultScheduler{
 		Interval: 30,
 	}
@@ -16,5 +16,8 @@ func main() {
 	}
 
 	scheduler.Start(ipProvider, ddns, os.Getenv("GOOGLE_DDNS_DOMAIN_NAME"))
+}
 
+func main() {
+	StartGoogleClient()
 }

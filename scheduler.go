@@ -6,22 +6,21 @@ import (
 )
 
 type Scheduler interface {
-	Start(IpAddressProvider, DDNSClient, string)
-	Execute(IpAddressProvider, DDNSClient, string)
+	Start(IpAddressProvider, DDNSClient)
+	Execute(IpAddressProvider, DDNSClient)
 }
 
 type DefaultScheduler struct {
-	Interval int
 }
 
-func (s *DefaultScheduler) Start(provider IpAddressProvider, ddns DDNSClient, domainName string) {
+func (s *DefaultScheduler) Start(provider IpAddressProvider, ddns DDNSClient) {
 	for {
-		go s.Execute(provider, ddns, domainName)
-		time.Sleep(time.Duration(s.Interval) * time.Second)
+		go s.Execute(provider, ddns)
+		time.Sleep(time.Duration(ddns.GetInterval()) * time.Second)
 	}
 }
 
-func (s *DefaultScheduler) Execute(provider IpAddressProvider, ddns DDNSClient, domainName string) {
+func (s *DefaultScheduler) Execute(provider IpAddressProvider, ddns DDNSClient) {
 	currentIp := provider.GetLastIP()
 	latestIp := provider.GetLatestIP()
 	if latestIp == "" {
@@ -30,7 +29,7 @@ func (s *DefaultScheduler) Execute(provider IpAddressProvider, ddns DDNSClient, 
 	if currentIp == latestIp {
 		return
 	}
-	err := ddns.UpdateIP(domainName, latestIp)
+	err := ddns.UpdateIP(latestIp)
 	if err != nil {
 		log.Println("Failed to update ip", err)
 		return

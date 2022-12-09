@@ -22,7 +22,7 @@ func (ip *DefaultIpAddressProvider) GetLastIP() string {
 func (ip *DefaultIpAddressProvider) GetLatestIP() string {
 	resp, err := http.Get("https://ifconfig.me")
 	if err != nil {
-		log.Println("Failed to get ip address")
+		log.Println("Failed to get ip address", err)
 		return ""
 	}
 
